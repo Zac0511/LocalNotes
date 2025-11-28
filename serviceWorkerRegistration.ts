@@ -17,16 +17,14 @@ type Config = {
 };
 
 export function register(config?: Config) {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-    // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(process.env.PUBLIC_URL || '', window.location.href);
-    if (publicUrl.origin !== window.location.origin) {
-      // Our service worker won't work if PUBLIC_URL is on a different origin
-      return;
-    }
+  // Safely access import.meta.env.PROD.
+  // In development environments without Vite (like raw ES modules), import.meta.env is undefined.
+  // We use optional chaining to avoid crashing.
+  const isProd = (import.meta as any).env?.PROD;
 
+  if (isProd && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      // Use relative path to support subdirectories (like GitHub Pages) without strict PUBLIC_URL dependency
+      // Use relative path to support subdirectories (like GitHub Pages)
       const swUrl = './service-worker.js';
 
       if (isLocalhost) {
