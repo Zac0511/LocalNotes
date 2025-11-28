@@ -1,0 +1,5 @@
+{
+  "name": "LocalNotes PWA",
+  "description": "A simple, offline-first markdown note-taking application that runs entirely in your browser using local storage. No cloud, no AI, just notes.",
+  "requestFramePermissions": []
+}
